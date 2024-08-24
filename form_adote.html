@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projeto</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="style.css">
+
+        <script>
+            // Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+            (function() {
+              'use strict';
+              window.addEventListener('load', function() {
+                // Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+                var forms = document.getElementsByClassName('needs-validation');
+                // Faz um loop neles e evita o envio
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                  form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                  }, false);
+                });
+              }, false);
+            })();
+            </script>
+       
+    </head>
+
+    <body>
+        
+        <section id="header">
+            <a href="#"><img src="img/logo.webp" width="90" class="logo" alt="logo"></a>
+
+            <div>
+                <ul id="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Institucional</a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="about.html">Sobre</a>
+                          <a class="dropdown-item" href="help.html">Como posso ajudar?</a>
+                        </div>
+                    </li>
+                    <li><a href="ong.html">ONG´s</a></li>
+                    <li><a href="adote2.html">Quero Adotar</a></li>
+                    <li><a id="active" href="form_adote.html">Anunciar</a></li>
+                    <li  class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Denuncia</a>
+                      <div class="dropdown-menu">
+                        <a class="dropdown-item" href="denuncia.html">Denunciar</a>
+                        <a class="dropdown-item" href="ver_denuc.html">Denuncias</a>
+                      </div>
+                  </li>
+                    <li><a href="index.html"><i class="far fa-sign-out-alt"></i></a></li>
+                    <a href="#" id="close"><i class="far fa-times"></i></a>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img class="d-block w-100" src="img/banner1.jpg" alt="Primeiro Slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="img/banner2.jpg" alt="Segundo Slide">
+                  </div>
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src=".../800x400?auto=yes&bg=555&fg=333&text=Terceiro Slide" alt="Terceiro Slide">
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Anterior</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Próximo</span>
+                </a>
+              </div>
+        </section>
+
+        <section id="prod1" class="section-p1">
+            <h2> Quer anunciar um amiguinho?</h2>
+            <p> Preencha o formulário!</p>
+            <span style="color: rgb(114, 13, 13);">(Assim que enviado, iremos validar seu anúncio e enviar um email assim que publicado!)</span>
+        <br><br><br>
+            <form class="needs-validation" novalidate>
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Nome do Pet</label>
+                    <input type="text" class="form-control" id="validationCustom01" placeholder="Nome do Pet" value="" required>
+                    <div class="valid-feedback">
+                      Tudo certo!
+                    </div>
+                    </div>
+                
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Idade do Pet</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Idade do Pet" value="" required>
+                    <div class="valid-feedback">
+                      Tudo certo!
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Digite seu nome para contato</label>
+                    <input type="text" class="form-control" id="validationCustom01" placeholder="Nome" value="" required>
+                    <div class="valid-feedback">
+                      Tudo certo!
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">Digite seu telefone para contato</label>
+                    <input type="tel" class="form-control" id="validationCustom01" placeholder="(xx) xxxxx-xxxx" value="" required>
+                    <div class="valid-feedback">
+                      Tudo certo!
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustomUsername">Digite seu email para contato</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                      </div>
+                      <input type="text" class="form-control" id="validationCustomUsername" placeholder="contato@gmail.com" aria-describedby="inputGroupPrepend" required>
+                      <div class="invalid-feedback">
+                        Por favor, digite seu email.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label for="validationCustom03">Cidade</label>
+                    <input type="text" class="form-control" id="validationCustom03" placeholder="Cidade" required>
+                    <div class="invalid-feedback">
+                      Por favor, informe uma cidade válida.
+                    </div>
+                  </div>
+                
+                  <div class="col-md-3 mb-3">
+                    <label for="validationCustom04">Estado</label>
+                    <input type="text" class="form-control" id="validationCustom04" placeholder="Estado" required>
+                    <div class="invalid-feedback">
+                      Por favor, informe um estado válido.
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationCustom05">CEP</label>
+                    <input type="text" class="form-control" id="validationCustom05" placeholder="CEP" required>
+                    <div class="invalid-feedback">
+                      Por favor, informe um CEP válido.
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="validationCustom07">Sobre o Pet</label>
+                    <input type="textarea" class="form-control" id="validationCustom03" placeholder="Fale um pouco sobre o pet anunciado" required>
+                    <div class="invalid-feedback">
+                      Campo obrigatório
+                    </div>
+                  </div>
+                  <div class="custom-file">
+                    <label for="validationCustom06">Foto do Pet</label>
+                    <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                    <label class="custom-file-label" for="validatedCustomFile">Escolher arquivo...</label>
+                    <div class="invalid-feedback">Campo obrigatório</div>
+                  </div>
+                </div><br><br><br>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                      Concordo com os termos e condições
+                    </label>
+                    <div class="invalid-feedback">
+                      Você deve concordar, antes de continuar.
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+              </form>
+              
+        </section>
+
+        <section id="adote" class="section-p1 section-m1">
+            <div class="adotetext">
+                <h4>Adote um amiguinho</h4>
+                <p>Eles estão esperando por você!</p>
+            </div>
+        </section>
+  
+          <footer class="section-p1">
+            <div class="col">
+                <img class="logo" src="img/logo.webp" width="90" alt="">
+                <h4>Contato</h4>
+                <p><strong>Endereço:</strong> Rincão, SP</p>
+                <p><strong>Telefone:</strong>+55169999-9999 | +55169999-9999</p>
+                <div class="follow">
+                    <h4>Nos siga</h4>
+                    <div class="icon">
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="col">
+                <h4>Sobre</h4>
+                <a href="#">Sobre Nós</a>
+                <a href="#">Perguntas Frequentes</a>
+                <a href="#">Política de Privacidade</a>
+                <a href="#">Termos & Condições</a>
+                <a href="#">Entre em contato</a>
+            </div>
+  
+            <div class="col">
+                <h4>Colabore</h4>
+                <a href="#">Doe qualquer valor</a>
+                <a href="#">Seja uma Empresa Parceira</a>
+            </div>
+  
+            <div class="copyright">
+                <p>&copy 2024, Todos os direitos reservados - Naju</p>
+            </div>
+        </footer>
+  
+        <script src="script.js"></script>
+      </body>
+  
+  </html>

@@ -58,7 +58,14 @@ $pass = "";
                     </li>
                     <li><a href="contact.html">ONG´s</a></li>
                     <li><a href="adote2.html">Quero Adotar</a></li>
-                    <li><a href="denuncia.html">Denunciar</a></li>
+                    <li><a href="form_adote.html">Anunciar</a></li>
+                    <li  class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Denuncia</a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="denuncia.html">Denunciar</a>
+                          <a class="dropdown-item" href="ver_denuc.html">Denuncias</a>
+                        </div>
+                    </li>
                     <li><a href="index.html"><i class="far fa-sign-out-alt"></i></a></li>
                     <a href="#" id="close"><i class="far fa-times"></i></a>
                 </ul>
