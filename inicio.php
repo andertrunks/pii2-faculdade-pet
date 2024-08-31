@@ -87,7 +87,10 @@ $pass = "";
                     <img class="d-block w-100" src="img/banner2.jpg" alt="Segundo Slide">
                   </div>
                   <div class="carousel-item">
-                    <img class="d-block w-100" src=".../800x400?auto=yes&bg=555&fg=333&text=Terceiro Slide" alt="Terceiro Slide">
+                    <img class="d-block w-100" src="img/banner4.webp" alt="Terceiro Slide">
+                    <div class="carousel-caption d-md-block">   <br />
+                      <a href="adote2.html" class="main-btn">ADOTE!</a>
+                    </div>
                   </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
