@@ -1,3 +1,10 @@
+<?php
+
+require "verifica.php";
+
+if(isset($_SESSION['id']) && !empty($_SESSION['id'])); 
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -46,17 +53,25 @@
                 <ul id="navbar">
                     <li><a href="index.html">Home</a></li>
                     <li class="nav-item dropdown">
-                        <a id="active" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Institucional</a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Institucional</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="about.html">Sobre</a>
-                          <a id="active" class="dropdown-item" href="help.html">Como posso ajudar?</a>
+                          <a class="dropdown-item" href="about2.html">Sobre</a>
+                          <a class="dropdown-item" href="help2.html">Como posso ajudar?</a>
                         </div>
                     </li>
-                    <li><a href="ong.html">ONG´s</a></li>
-                    <li><a href="adote.html">Quero Adotar</a></li>
-                    <li id="lg-bag"><a href="login.html"><i class="far fa-user"></i> Sign in/Sign Up</a></li>
+                    <li><a href="ong2.html">ONG´s</a></li>
+                    <li><a href="adote2.html">Quero Adotar</a></li>
+                    <li><a id="active" href="form_adote.php">Anunciar</a></li>
+                    <li  class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Denuncia</a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="denuncia.php">Denunciar</a>
+                          <a class="dropdown-item" href="sdenuncia.html">Denuncias</a>
+                        </div>
+                    </li>
+                    <li><a href="index.html"><i class="far fa-sign-out-alt"></i></a></li>
                     <a href="#" id="close"><i class="far fa-times"></i></a>
-                    <div class="btn-container"></div>
+                    <div class="btn-container">
                       <button class="btn btn-primary btn-sm" name="increase-font" id="increase-font" title="Aumentar fonte">A +</button>
                       <button class="btn btn-primary btn-sm" name="decrease-font" id="decrease-font" title="Diminuir fonte">A -</button>
                     </div>
@@ -81,7 +96,7 @@
                   <div class="carousel-item">
                     <img class="d-block w-100" src="img/banner4.webp" alt="Terceiro Slide">
                     <div class="carousel-caption d-md-block">   <br />
-                      <a href="login.html" class="main-btn">ADOTE!</a>
+                      <a href="adote2.html" class="main-btn">ADOTE!</a>
                     </div>
                   </div>
                 </div>
@@ -96,58 +111,45 @@
               </div>
         </section>
 
-        <section id="about-head" class="section-p1">
-            <img src="img/about/banner2.gif" alt="banner">
-            <div>
-                <h2>Como posso ajudar?</h2>
-                <p>
-                    Olá! Você pode ajudar esta ONG a mudar a realidade da proteção animal em nossa cidade. Com a sua ajuda, muitos pets já foram beneficiados, fazendo a diferença na vida de muitos cães e gatos abandonados.
-                    Nós, da "AdotaPet - Adoção Responsável", temos orgulho de fazer um trabalho construído a várias mãos, que contribui para a melhoria das condições de vários animais em situação de vulnerabilidade.
-                    Essa visibilidade é possível por meio de doações para esta ONG. 
-                    Assim você ajuda a "AdotaPet - Adoção Responsável" a continuar crescendo nesta corrente de doação sustentável voltada para a causa animal.
-                    Desta maneira, faça uma doação! Entre em contato conosco através do (?) e entre nessa corrente do bem.
-                </p>
-            </div>
+        <?php
 
-        </section>
+$SendAddRel = filter_input(INPUT_POST, 'SendAddRel', FILTER_SANITIZE_STRING);
+if($SendAddRel){
+    //Receber os dados do formulário
+    $nome_pet = filter_input(INPUT_POST, 'nome_pet', FILTER_SANITIZE_STRING);
+    $idade_pet = filter_input(INPUT_POST, 'idade_pet', FILTER_SANITIZE_STRING);
+    $nome_contato = filter_input(INPUT_POST, 'nome_contato', FILTER_SANITIZE_STRING);
+    $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+    $cidade = filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_STRING);
+    $uf = filter_input(INPUT_POST, 'uf', FILTER_SANITIZE_STRING);
+    $cep = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_STRING);
+    $sobre = filter_input(INPUT_POST, 'sobre', FILTER_SANITIZE_STRING);
+    
+    //Inserir no BD
+    $result_rel = "INSERT INTO anunciar (nome_pet, idade_pet, nome_contato, telefone, email, cidade, uf, cep, sobre) VALUES (:nome_pet, :idade_pet, :nome_contato, :telefone, :email, :cidade, :uf, :cep, :sobre)";
+    
+    $insert_rel = $pdo->prepare($result_rel);
+    $insert_rel->bindParam(':nome_pet', $nome_pet);
+    $insert_rel->bindParam(':idade_pet', $idade_pet);
+    $insert_rel->bindParam(':nome_contato', $nome_contato);
+    $insert_rel->bindParam(':telefone', $telefone);
+    $insert_rel->bindParam(':email', $email);
+    $insert_rel->bindParam(':cidade', $cidade);
+    $insert_rel->bindParam(':uf', $uf);
+    $insert_rel->bindParam(':cep', $cep);
+    $insert_rel->bindParam(':sobre', $sobre);
+    
+    if($insert_rel->execute()){
+        echo "<div class='jumbotron'>
+          <h1 class='display-4'>Anúncio de adoção enviado com sucesso!</h1>
+          <p class='lead'>Seu anúncio passará pelo processo de validação por nossa equipe, assim que validado será postado em nosso site.</p>
+          <hr class='my-4'>
+          <p>Enviaremos o processo de seu anúncio pelo e-mail.</p>
+          <a class='btn btn-primary btn-lg' href='adote2.html' role='button'>Veja outros pets para adoção</a>
+        </div>";
+       
+    }
+  }
 
-        <footer class="section-p1">
-            <div class="col">
-                <img class="logo" src="img/logo.webp" width="90" alt="">
-                <h4>Contato</h4>
-                <p><strong>Endereço:</strong> Rincão, SP</p>
-                <p><strong>Telefone:</strong>+55169999-9999 | +55169999-9999</p>
-                <div class="follow">
-                    <h4>Nos siga</h4>
-                    <div class="icon">
-                        <i class="fab fa-facebook"></i>
-                        <i class="fab fa-twitter"></i>
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                </div>
-            </div>
-  
-            <div class="col">
-                <h4>Sobre</h4>
-                <a href="#">Sobre Nós</a>
-                <a href="#">Perguntas Frequentes</a>
-                <a href="#">Política de Privacidade</a>
-                <a href="#">Termos & Condições</a>
-                <a href="#">Entre em contato</a>
-            </div>
-  
-            <div class="col">
-                <h4>Colabore</h4>
-                <a href="#">Doe qualquer valor</a>
-                <a href="#">Seja uma Empresa Parceira</a>
-            </div>
-  
-            <div class="copyright">
-                <p>&copy 2024, Todos os direitos reservados - Naju</p>
-            </div>
-        </footer>
-  
-        <script src="script.js"></script>
-
-    </body>
-</html>
+?>

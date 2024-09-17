@@ -12,6 +12,29 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css">
+        <script>
+          window.onload = function() {
+              var elementBody = document.querySelector('body');
+              var elementBtnIncreaseFont = document.getElementById('increase-font');
+              var elementBtnDecreaseFont = document.getElementById('decrease-font');
+              // Padrão de tamanho, equivale a 100% do valor definido no Body
+              var fontSize = 100;
+              // Valor de incremento ou decremento, equivale a 10% do valor do Body
+              var increaseDecrease = 10;
+
+              // Evento de click para aumentar a fonte
+              elementBtnIncreaseFont.addEventListener('click', function(event) {
+                  fontSize = fontSize + increaseDecrease;
+                  elementBody.style.fontSize = fontSize + '%';
+              });
+
+              // Evento de click para diminuir a fonte
+              elementBtnDecreaseFont.addEventListener('click', function(event) {
+                  fontSize = fontSize - increaseDecrease;
+                  elementBody.style.fontSize = fontSize + '%';
+              });
+          }
+        </script>
     </head>
 
     <body>
@@ -33,6 +56,10 @@
                     <li><a href="adote.html">Quero Adotar</a></li>
                     <li id="lg-bag"><a href="login.html"><i class="far fa-user"></i> Sign in/Sign Up</a></li>
                     <a href="#" id="close"><i class="far fa-times"></i></a>
+                    <div class="btn-container"></div>
+                      <button class="btn btn-primary btn-sm" name="increase-font" id="increase-font" title="Aumentar fonte">A +</button>
+                      <button class="btn btn-primary btn-sm" name="decrease-font" id="decrease-font" title="Diminuir fonte">A -</button>
+                    </div>
                 </ul>
             </div>
         </section>
@@ -74,34 +101,8 @@
             <div>
                 <h2>quem somos nós</h2>
                 <p>
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                </p>
-
-            <br><br>
-
-                <h2>O que eu devo fazer para adotar o meu pet?</h2>
-                <p>
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                    Somos uma organização não governamental (ONG), sem fins lucrativos, fundada em 21 de Abril de 2023 na cidade de Rincão (SP), por um grupo de 20 voluntários (as) que atuavam de forma dispersa na cidade e, que resolveram se juntar para consolidar forças contra os maus tratos aos pets.
+                    Atualmente a ONG concentra os seus esforços para ajudar os pets (cães e gatos) em situação de vulnerabilidade, adoção responsável e na denúncia de maus tratos.
                 </p>
             </div>
 

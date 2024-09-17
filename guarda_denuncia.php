@@ -3,7 +3,6 @@
 require "verifica.php";
 
 if(isset($_SESSION['id']) && !empty($_SESSION['id'])); 
-
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +19,29 @@ if(isset($_SESSION['id']) && !empty($_SESSION['id']));
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css">
+        <script>
+          window.onload = function() {
+              var elementBody = document.querySelector('body');
+              var elementBtnIncreaseFont = document.getElementById('increase-font');
+              var elementBtnDecreaseFont = document.getElementById('decrease-font');
+              // Padrão de tamanho, equivale a 100% do valor definido no Body
+              var fontSize = 100;
+              // Valor de incremento ou decremento, equivale a 10% do valor do Body
+              var increaseDecrease = 10;
+
+              // Evento de click para aumentar a fonte
+              elementBtnIncreaseFont.addEventListener('click', function(event) {
+                  fontSize = fontSize + increaseDecrease;
+                  elementBody.style.fontSize = fontSize + '%';
+              });
+
+              // Evento de click para diminuir a fonte
+              elementBtnDecreaseFont.addEventListener('click', function(event) {
+                  fontSize = fontSize - increaseDecrease;
+                  elementBody.style.fontSize = fontSize + '%';
+              });
+          }
+        </script>
     </head>
 
     <body>
@@ -33,22 +55,26 @@ if(isset($_SESSION['id']) && !empty($_SESSION['id']));
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Institucional</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="about.html">Sobre</a>
-                          <a class="dropdown-item" href="help.html">Como posso ajudar?</a>
+                          <a class="dropdown-item" href="about2.html">Sobre</a>
+                          <a class="dropdown-item" href="help2.html">Como posso ajudar?</a>
                         </div>
                     </li>
-                    <li><a href="ong.html">ONG´s</a></li>
+                    <li><a href="ong2.html">ONG´s</a></li>
                     <li><a href="adote2.html">Quero Adotar</a></li>
-                    <li><a href="form_adote.html">Anunciar</a></li>
+                    <li><a href="form_adote.php">Anunciar</a></li>
                     <li  class="nav-item dropdown">
                         <a id="active" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Denuncia</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="denuncia.html">Denunciar</a>
-                          <a class="dropdown-item" href="ver_denuc.html">Denuncias</a>
+                          <a class="dropdown-item" href="denuncia.php">Denunciar</a>
+                          <a class="dropdown-item" href="sdenuncia.html">Denuncias</a>
                         </div>
                     </li>
                     <li><a href="index.html"><i class="far fa-sign-out-alt"></i></a></li>
                     <a href="#" id="close"><i class="far fa-times"></i></a>
+                    <div class="btn-container">
+                      <button class="btn btn-primary btn-sm" name="increase-font" id="increase-font" title="Aumentar fonte">A +</button>
+                      <button class="btn btn-primary btn-sm" name="decrease-font" id="decrease-font" title="Diminuir fonte">A -</button>
+                    </div>
                 </ul>
             </div>
         </section>
@@ -87,33 +113,31 @@ if(isset($_SESSION['id']) && !empty($_SESSION['id']));
 
         <?php
 
-        $SendAddRel = filter_input(INPUT_POST, 'SendAddRel', FILTER_SANITIZE_STRING);
-        if($SendAddRel){
-            //Receber os dados do formulário
-            $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
-            $desc = filter_input(INPUT_POST, 'desc', FILTER_SANITIZE_STRING);
-            $data = filter_input(INPUT_POST, 'data', FILTER_SANITIZE_STRING);
-            $foto = filter_input(INPUT_POST, 'foto', FILTER_SANITIZE_STRING);
-            
-            //Inserir no BD
-            $result_rel = "INSERT INTO denuncia (titulo, desc, data, foto) VALUES (:titulo, :desc, :data, :foto)";
-            
-            $insert_rel = $pdo->prepare($result_rel);
-            $insert_rel->bindParam(':titulo', $titulo);
-            $insert_rel->bindParam(':desc', $desc);
-            $insert_rel->bindParam(':data', $data);
-            $insert_rel->bindParam(':foto', $foto);
-            
-            if($insert_rel->execute()){
-                echo "<br/><br/><br/><div class='mainbox'>
-                <div class='msg'><p>Relato enviado com sucesso para verificação! Assim que o seu relato foi verificado ele será postado na página de relatos, por favor aguarde.<br/> 
-                <a href='faca_relato.php'>Voltar</a> ou <a href='relatos.php'>Ver relatos</a></p></div>
-                <i class='far fa-check-circle'></i>
-                </div>
-                <center><img width='500' height='500' src = 'img/sucesso.gif' /></center>";
-            
-            }
-        }
-
+$SendAddRel = filter_input(INPUT_POST, 'SendAddRel', FILTER_SANITIZE_STRING);
+if($SendAddRel){
+    //Receber os dados do formulário
+    $titulo = filter_input(INPUT_POST, 'titulo', FILTER_SANITIZE_STRING);
+    $descricao = filter_input(INPUT_POST, 'descricao', FILTER_SANITIZE_STRING);
+    $dat = filter_input(INPUT_POST, 'dat', FILTER_SANITIZE_STRING);
+    
+    //Inserir no BD
+    $result_rel = "INSERT INTO denuncia (titulo, descricao, dat) VALUES (:titulo, :descricao, :dat)";
+    
+    $insert_rel = $pdo->prepare($result_rel);
+    $insert_rel->bindParam(':titulo', $titulo);
+    $insert_rel->bindParam(':descricao', $descricao);
+    $insert_rel->bindParam(':dat', $dat);
+    
+    if($insert_rel->execute()){
+        echo "<div class='jumbotron'>
+          <h1 class='display-4'>Denúncia enviada com sucesso!</h1>
+          <p class='lead'>Sua denúncia passará pelo processo de validação por nossa equipe, assim que validada será postada em nosso site.</p>
+          <hr class='my-4'>
+          <p>Enviaremos o processo de sua denúncia pelo e-mail.</p>
+          <a class='btn btn-primary btn-lg' href='sdenuncia.html' role='button'>Veja outras denúncias</a>
+        </div>";
+       
+    }
+  }
 
 ?>

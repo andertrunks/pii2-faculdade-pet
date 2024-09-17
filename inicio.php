@@ -39,6 +39,30 @@ $pass = "";
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css">
+        <script>
+
+            window.onload = function() {
+              var elementBody = document.querySelector('body');
+              var elementBtnIncreaseFont = document.getElementById('increase-font');
+              var elementBtnDecreaseFont = document.getElementById('decrease-font');
+              // Padrão de tamanho, equivale a 100% do valor definido no Body
+              var fontSize = 100;
+              // Valor de incremento ou decremento, equivale a 10% do valor do Body
+              var increaseDecrease = 10;
+
+              // Evento de click para aumentar a fonte
+              elementBtnIncreaseFont.addEventListener('click', function(event) {
+                  fontSize = fontSize + increaseDecrease;
+                  elementBody.style.fontSize = fontSize + '%';
+              });
+
+              // Evento de click para diminuir a fonte
+              elementBtnDecreaseFont.addEventListener('click', function(event) {
+                  fontSize = fontSize - increaseDecrease;
+                  elementBody.style.fontSize = fontSize + '%';
+              });
+          }
+        </script>
     </head>
 
     <body>
@@ -52,22 +76,26 @@ $pass = "";
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Institucional</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="about.html">Sobre</a>
-                          <a class="dropdown-item" href="help.html">Como posso ajudar?</a>
+                          <a class="dropdown-item" href="about2.html">Sobre</a>
+                          <a class="dropdown-item" href="help2.html">Como posso ajudar?</a>
                         </div>
                     </li>
-                    <li><a href="contact.html">ONG´s</a></li>
+                    <li><a href="ong2.html">ONG´s</a></li>
                     <li><a href="adote2.html">Quero Adotar</a></li>
-                    <li><a href="form_adote.html">Anunciar</a></li>
+                    <li><a href="form_adote.php">Anunciar</a></li>
                     <li  class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Denuncia</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="denuncia.html">Denunciar</a>
-                          <a class="dropdown-item" href="ver_denuc.html">Denuncias</a>
+                          <a class="dropdown-item" href="denuncia.php">Denunciar</a>
+                          <a class="dropdown-item" href="sdenuncia.html">Denuncias</a>
                         </div>
                     </li>
                     <li><a href="index.html"><i class="far fa-sign-out-alt"></i></a></li>
                     <a href="#" id="close"><i class="far fa-times"></i></a>
+                    <div class="btn-container">
+                      <button class="btn btn-primary btn-sm" name="increase-font" id="increase-font" title="Aumentar fonte">A +</button>
+                      <button class="btn btn-primary btn-sm" name="decrease-font" id="decrease-font" title="Diminuir fonte">A -</button>
+                    </div>
                 </ul>
             </div>
         </section>

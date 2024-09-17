@@ -1,3 +1,9 @@
+<?php
+include_once './conexao_pdo.php';
+require "verifica.php";
+
+if(isset($_SESSION['id']) && !empty($_SESSION['id'])); 
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -12,27 +18,29 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css">
-
         <script>
-            // Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
-            (function() {
-              'use strict';
-              window.addEventListener('load', function() {
-                // Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
-                var forms = document.getElementsByClassName('needs-validation');
-                // Faz um loop neles e evita o envio
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                  form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                      event.preventDefault();
-                      event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                  }, false);
-                });
-              }, false);
-            })();
-            </script>
+          window.onload = function() {
+              var elementBody = document.querySelector('body');
+              var elementBtnIncreaseFont = document.getElementById('increase-font');
+              var elementBtnDecreaseFont = document.getElementById('decrease-font');
+              // Padrão de tamanho, equivale a 100% do valor definido no Body
+              var fontSize = 100;
+              // Valor de incremento ou decremento, equivale a 10% do valor do Body
+              var increaseDecrease = 10;
+
+              // Evento de click para aumentar a fonte
+              elementBtnIncreaseFont.addEventListener('click', function(event) {
+                  fontSize = fontSize + increaseDecrease;
+                  elementBody.style.fontSize = fontSize + '%';
+              });
+
+              // Evento de click para diminuir a fonte
+              elementBtnDecreaseFont.addEventListener('click', function(event) {
+                  fontSize = fontSize - increaseDecrease;
+                  elementBody.style.fontSize = fontSize + '%';
+              });
+          }
+        </script>
     </head>
 
     <body>
@@ -46,22 +54,26 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Institucional</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="about.html">Sobre</a>
-                          <a class="dropdown-item" href="help.html">Como posso ajudar?</a>
+                          <a class="dropdown-item" href="about2.html">Sobre</a>
+                          <a class="dropdown-item" href="help2.html">Como posso ajudar?</a>
                         </div>
                     </li>
-                    <li><a href="ong.html">ONG´s</a></li>
+                    <li><a href="ong2.html">ONG´s</a></li>
                     <li><a href="adote2.html">Quero Adotar</a></li>
-                    <li><a href="form_adote.html">Anunciar</a></li>
+                    <li><a href="form_adote.php">Anunciar</a></li>
                     <li  class="nav-item dropdown">
                         <a id="active" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Denuncia</a>
                         <div class="dropdown-menu">
-                          <a id="active" class="dropdown-item" href="denuncia.html">Denunciar</a>
+                          <a id="active" class="dropdown-item" href="denuncia.php">Denunciar</a>
                           <a class="dropdown-item" href="sdenuncia.html">Denuncias</a>
                         </div>
                     </li>
                     <li><a href="index.html"><i class="far fa-sign-out-alt"></i></a></li>
                     <a href="#" id="close"><i class="far fa-times"></i></a>
+                    <div class="btn-container">
+                      <button class="btn btn-primary btn-sm" name="increase-font" id="increase-font" title="Aumentar fonte">A +</button>
+                      <button class="btn btn-primary btn-sm" name="decrease-font" id="decrease-font" title="Diminuir fonte">A -</button>
+                    </div>
                 </ul>
             </div>
         </section>
@@ -99,71 +111,49 @@
         </section>
 
         <section id="prod1" class="section-p1">
-            <h2>Denuncie maus tratos!</h2>
-            <p>Preencha o formulário!</p>
-            <form action="guarda_denuncia.php" method="POST" class="needs-validation" novalidate>
-                <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Título</label>
-                    <input type="text" name="titulo" class="form-control" id="validationCustom01" placeholder="Título" value="" required>
-                    <div class="valid-feedback">
-                      Tudo certo!
-                    </div>
-                    </div>
-                
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom02">Data</label>
-                    <input type="date" name="data" class="form-control" id="validationCustom02" placeholder="" value="" required>
-                    <div class="valid-feedback">
-                      Tudo certo!
-                    </div>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Descrição</label>
-                    <input type="text" name="desc" class="form-control" id="validationCustom01" placeholder="Descrição" value="" required>
-                    <div class="valid-feedback">
-                      Tudo certo!
-                    </div>
-                  </div>
-                  <div class="custom-file">
-                    <input type="file" name="foto" class="custom-file-input" id="validatedCustomFile" required>
-                    <label class="custom-file-label" for="validatedCustomFile">Escolher arquivo...</label>
-                    <div class="invalid-feedback">Campo obrigatório</div>
-                  </div>
-                </div><br><br><br>
-                <div class="form-group">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                      <label class="form-check-label" for="invalidCheck">
-                        Concordo com os termos e condições
-                      </label>
-                      <div class="invalid-feedback">
-                        Você deve concordar, antes de continuar.
-                      </div>
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#ExemploModalCentralizado">Enviar</button>
-                  <!-- Modal -->
-                  <div class="modal fade" id="ExemploModalCentralizado" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="TituloModalCentralizado">Denuncia enviada!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                        Sua denuncia será analisada <br>
-                        Veja outras denuncias <a href="ver_denuncias.html">aqui</a>!
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </form>
+            <h2> Faça sua denúncia </h2>
+        </section>
+
+        <section id="prod1" class="section-p1">
+        <div class="limiter">
+        <div class="container-login100" style="background-color: #fff;">
+          <div class="wrap-login100">
+            <form action="guarda_denuncia.php" method="POST" class="login100-form validate-form">
+              <div class="alert alert-light" role="alert">
+                <strong>Olá <?php echo $nomeUser;  ?>!</strong> Viu algum sinal de maus tratos? Denuncie para nós!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+        <div class="form-group">
+        <label for="exampleInputEmail1">Titulo da denúncia:</label> 
+						<input class="form-control" type="text" name="titulo" placeholder="Titulo...">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+				</div>
+
+        <div class="form-group">
+        <label for="exampleInputEmail1">Data da denúncia:</label>  
+						<input class="form-control" type="date" name="dat" placeholder="DD/MM/YYYY">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+				</div>
+
+        <div class="form-group">
+        <label for="exampleInputEmail1">Descrição da denúncia:</label> 
+          <div data-validate="Descrição..."> 
+						<textarea class="form-control" name="descricao" ></textarea>
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+          <br><br>
+					<div class="container-login100-form-btn">
+					<input type="submit" name="SendAddRel" value="Enviar" class="btn btn-primary" >
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
                 
           </section>
   

@@ -1,3 +1,9 @@
+<?php
+include_once './conexao_pdo.php';
+require "verifica.php";
+
+if(isset($_SESSION['id']) && !empty($_SESSION['id'])); 
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -12,8 +18,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="style.css">
+
         <script>
-          window.onload = function() {
+
+        window.onload = function() {
               var elementBody = document.querySelector('body');
               var elementBtnIncreaseFont = document.getElementById('increase-font');
               var elementBtnDecreaseFont = document.getElementById('decrease-font');
@@ -34,6 +42,72 @@
                   elementBody.style.fontSize = fontSize + '%';
               });
           }
+    
+        function limpa_formulário_cep() {
+                //Limpa valores do formulário de cep.
+                document.getElementById('rua').value=("");
+                document.getElementById('bairro').value=("");
+                document.getElementById('cidade').value=("");
+                document.getElementById('uf').value=("");
+        }
+    
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                //Atualiza os campos com os valores.
+                document.getElementById('rua').value=(conteudo.logradouro);
+                document.getElementById('bairro').value=(conteudo.bairro);
+                document.getElementById('cidade').value=(conteudo.localidade);
+                document.getElementById('uf').value=(conteudo.uf);
+            } //end if.
+            else {
+                //CEP não Encontrado.
+                limpa_formulário_cep();
+                alert("CEP não encontrado.");
+            }
+        }
+            
+        function pesquisacep(valor) {
+    
+            //Nova variável "cep" somente com dígitos.
+            var cep = valor.replace(/\D/g, '');
+    
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+    
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+    
+                //Valida o formato do CEP.
+                if(validacep.test(cep)) {
+    
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('rua').value="...";
+                    document.getElementById('bairro').value="...";
+                    document.getElementById('cidade').value="...";
+                    document.getElementById('uf').value="...";
+    
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
+    
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+    
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
+    
+                } //end if.
+                else {
+                    //cep é inválido.
+                    limpa_formulário_cep();
+                    alert("Formato de CEP inválido.");
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpa_formulário_cep();
+            }
+        };
+    
         </script>
     </head>
 
@@ -48,13 +122,13 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Institucional</a>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="about.html">Sobre</a>
-                          <a class="dropdown-item" href="help.html">Como posso ajudar?</a>
+                          <a class="dropdown-item" href="about2.html">Sobre</a>
+                          <a class="dropdown-item" href="help2.html">Como posso ajudar?</a>
                         </div>
                     </li>
-                    <li><a href="ong.html">ONG´s</a></li>
-                    <li><a id="active" href="adote2.html">Quero Adotar</a></li>
-                    <li><a href="form_adote.php">Anunciar</a></li>
+                    <li><a href="ong2.html">ONG´s</a></li>
+                    <li><a href="adote2.html">Quero Adotar</a></li>
+                    <li><a id="active" href="form_adote.php">Anunciar</a></li>
                     <li  class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Denuncia</a>
                       <div class="dropdown-menu">
@@ -64,7 +138,7 @@
                   </li>
                     <li><a href="index.html"><i class="far fa-sign-out-alt"></i></a></li>
                     <a href="#" id="close"><i class="far fa-times"></i></a>
-                    <div class="btn-container"></div>
+                    <div class="btn-container">
                       <button class="btn btn-primary btn-sm" name="increase-font" id="increase-font" title="Aumentar fonte">A +</button>
                       <button class="btn btn-primary btn-sm" name="decrease-font" id="decrease-font" title="Diminuir fonte">A -</button>
                     </div>
@@ -105,150 +179,87 @@
         </section>
 
         <section id="prod1" class="section-p1">
-            <h2> Pets para Adoção</h2>
-            <p> Adote um Amiguinho</p>
-            <div class="pro-container">
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a1.jpeg" alt="">
-                <div class="des">
-                  <span>São Paulo, SP</span>
-                  <h5>Thomas</h5>
-                  <h4>6 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a2.jpg" alt="">
-                <div class="des">
-                  <span>Araraquara, SP</span>
-                  <h5>Zoro</h5>
-                  <h4>1 ano</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a3.jpg" alt="">
-                <div class="des">
-                  <span>Rio de Janeiro, RJ</span>
-                  <h5>Snow</h5>
-                  <h4>9 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a4.avif" alt="">
-                <div class="des">
-                  <span>Rincão, SP</span>
-                  <h5>Pudim</h5>
-                  <h4>4 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a5.jpeg" alt="">
-                <div class="des">
-                  <span>São Carlos, SP</span>
-                  <h5>Lua</h5>
-                  <h4>4 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a6.jpg" alt="">
-                <div class="des">
-                  <span>Fortaleza, CE</span>
-                  <h5>Bolinha</h5>
-                  <h4>1 ano</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a7.jpg" alt="">
-                <div class="des">
-                  <span>São Paulo, SP</span>
-                  <h5>Bobby</h5>
-                  <h4>1 ano</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a8.jpg" alt="">
-                <div class="des">
-                  <span>Rio de Janeiro, RJ</span>
-                  <h5>Chico</h5>
-                  <h4>1 ano e 3 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a9.webp" alt="">
-                <div class="des">
-                  <span>Porto Alegre, RS</span>
-                  <h5>Bob</h5>
-                  <h4>1 ano e 3 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a10.webp" alt="">
-                <div class="des">
-                  <span>Blumenau, SC</span>
-                  <h5>Pandora</h5>
-                  <h4>6 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a11.webp" alt="">
-                <div class="des">
-                  <span>Belo Horizonte, MG</span>
-                  <h5>Salem</h5>
-                  <h4>8 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a12.webp" alt="">
-                <div class="des">
-                  <span>Curitiba, PR</span>
-                  <h5>Rakan</h5>
-                  <h4>1 ano e 3 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a13.webp" alt="">
-                <div class="des">
-                  <span>Porto Alegre, RS</span>
-                  <h5>Panqueca e Floquinho</h5>
-                  <h4>1 ano e 5 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a14.webp" alt="">
-                <div class="des">
-                  <span>São Paulo, SP</span>
-                  <h5>Kitty</h5>
-                  <h4>1 ano e 4 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a15.webp" alt="">
-                <div class="des">
-                  <span>Natal, RN</span>
-                  <h5>Marlon</h5>
-                  <h4>4 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a16.webp" alt="">
-                <div class="des">
-                  <span>Campinas, SP</span>
-                  <h5>Boombastic</h5>
-                  <h4>1 ano e 3 meses</h4>
-                </div>
-              </div>
-              <div class="pro" onclick="window.location.href='sadote.html';">
-                <img src="img/prod/a17.webp" alt="">
-                <div class="des">
-                  <span>Rio de Janeiro, RJ</span>
-                  <h5>Sabrina</h5>
-                  <h4>1 ano</h4>
-                </div>
-              </div>
+            <h2> Adoção Responsável </h2>
+        </section>
 
-            </div>
-          </section>
-          
-          <section id="adote" class="section-p1 section-m1">
+        <section id="prod1" class="section-p1">
+          <div class="limiter">
+            <div class="container-login100" style="background-color: #fff;">
+              <div class="wrap-login100">
+                <form action="guarda_anuncio.php" method="POST" class="login100-form validate-form">
+                  <div class="alert alert-light" role="alert">
+                    <strong>Olá <?php echo $nomeUser;  ?>!</strong> Quer anunciar um pet para adoção responsável?
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+        
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">Nome do pet</label> 
+                    <input class="form-control" type="text" name="nome_pet" placeholder="Nome do pet...">
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                  </div>
+        
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">Idade do pet</label> 
+                    <input class="form-control" type="text" name="idade_pet" placeholder="Idade do pet...">
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                  </div>
+        
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">Nome para Contato</label> 
+                    <input class="form-control" type="text" name="nome_contato" placeholder="Seu nome para contato...">
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                  </div>
+        
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">Telefone para Contato</label>  
+                    <input class="form-control" type="tel" name="telefone" placeholder="(DD) XXXXX-XXXX">
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                  </div>
+        
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">Email para Contato</label>
+                    <input class="form-control" type="text" name="email" placeholder="seuemail@gmail.com...">
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                  </div>
+        
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">CEP</label>
+                  <input class="form-control" type="text" name="cep" placeholder="00000-000"
+                      onblur="pesquisacep(this.value);" /> 
+                      </div>
+                  </div>
+        
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">Cidade</label>
+                  <input class="form-control" name="cidade" type="text" id="cidade" size="40" placeholder="Cidade"> </div>
+                  </div>
+        
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">Estado</label>
+                  <input class="form-control" name="uf" type="text" id="uf" size="2" placeholder="UF"> </div>
+                  </div>
+        
+                  <div class="form-group">
+                  <label for="exampleInputEmail1">Sobre o pet:</label> 
+                    <div data-validate="Descrição..."> 
+                      <textarea class="form-control" name="sobre" ></textarea>
+                      <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                    </div>
+                    <br><br>
+                    <div class="container-login100-form-btn">
+                    <input type="submit" name="SendAddRel" value="Enviar" class="btn btn-primary" >
+                      </button>
+                    </div>
+      </form>
+			</div>
+		</div>
+	</div>
+              
+        </section>
+
+        <section id="adote" class="section-p1 section-m1">
             <div class="adotetext">
                 <h4>Adote um amiguinho</h4>
                 <p>Eles estão esperando por você!</p>
